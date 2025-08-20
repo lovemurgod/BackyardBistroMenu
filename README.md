@@ -25,15 +25,15 @@ client/
 ├── src/
 │   ├── assets/
 │   │   └── images/
-│   │       └── categories/          # All category images (SVG format)
-│   │           ├── beverages.svg
-│   │           ├── burgers.svg
-│   │           ├── mains.svg
-│   │           ├── pasta.svg
-│   │           ├── pizza.svg
-│   │           ├── salads.svg
-│   │           ├── soups.svg
-│   │           └── starters.svg
+│   │       └── categories/          # All category images (WebP format)
+│   │           ├── beverages.webp
+│   │           ├── burgers.webp
+│   │           ├── mains.webp
+│   │           ├── pasta.webp
+│   │           ├── pizza.webp
+│   │           ├── salads.webp
+│   │           ├── soups.webp
+│   │           └── starters.webp
 │   ├── components/
 │   │   ├── category-tiles.tsx       # Menu category grid
 │   │   ├── floating-bubbles.tsx     # Background animation
@@ -47,7 +47,7 @@ client/
 
 ## 🖼️ Image Management
 
-All category images are stored in `client/src/assets/images/categories/` as SVG files for optimal performance and scalability.
+All category images are stored in `attached_assets/images/categories/` as WebP files for optimal performance and reduced file sizes.
 
 To replace images:
 1. Add your new image to the `categories` folder
@@ -56,7 +56,7 @@ To replace images:
 
 Example:
 ```typescript
-import newImage from "@assets/images/categories/new-category.svg";
+import newImage from "@assets/images/categories/new-category.webp";
 
 export const categoryImages = {
   // ... other images
