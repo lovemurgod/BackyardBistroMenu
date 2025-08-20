@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Backyard Bistro - Luxury Cafe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#0d47a1',
+                        'deep-blue-dark': '#1a237e',
+                        'deep-blue-light': '#1565c0',
+                        'gold': '#ffd700',
+                        'gold-dark': '#ffb300',
+                        'cream': '#fafafa'
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delay': 'float 6s ease-in-out infinite 2s',
+                        'float-delay-2': 'float 6s ease-in-out infinite 4s',
+                        'fade-in': 'fadeIn 2s ease-in',
+                        'slide-up': 'slideUp 1s ease-out',
+                        'logo-reveal': 'logoReveal 3s ease-in-out'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        logoReveal: {
+                            '0%': { opacity: '0', transform: 'scale(0.8)' },
+                            '50%': { opacity: '1', transform: 'scale(1.05)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.6), rgba(255, 179, 0, 0.4));
+            animation: floatBubble 10s infinite linear;
+            opacity: 0.7;
+        }
+        
+        @keyframes floatBubble {
+            0% {
+                transform: translateY(100vh) translateX(0px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .menu-slide {
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .menu-slide.active {
+            transform: translateX(0);
+        }
+        
+        .loading-screen {
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+        }
+    </style>
+</head>
+<body class="bg-cream font-sans">
+    <!-- Loading Animation -->
+    <div id="loadingScreen" class="loading-screen fixed inset-0 flex items-center justify-center z-50 transition-opacity duration-1000">
+        <div class="text-center">
+            <h1 class="font-serif text-6xl md:text-8xl text-gold animate-logo-reveal font-bold mb-4">The Backyard</h1>
+            <h2 class="font-serif text-4xl md:text-6xl text-white animate-logo-reveal font-light tracking-wide">Bistro</h2>
+            <div class="mt-8 w-32 h-1 bg-gold mx-auto opacity-0 animate-fade-in"></div>
+        </div>
+    </div>
+
+    <!-- Floating Bubbles -->
+    <div id="bubbles" class="fixed inset-0 pointer-events-none z-10"></div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="opacity-0 transition-opacity duration-1000">
+        <!-- Hero Section -->
+        <header class="relative bg-gradient-to-br from-deep-blue via-deep-blue-light to-deep-blue-dark min-h-screen flex items-center justify-center overflow-hidden">
+            <!-- Hero background image -->
+            <!-- Elegant restaurant interior with warm lighting and modern design -->
+            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080');"></div>
+            
+            <div class="relative z-20 text-center px-4 max-w-4xl mx-auto">
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-gold font-bold mb-6 animate-slide-up">The Backyard</h1>
+                <h2 class="font-serif text-3xl md:text-5xl lg:text-6xl text-white font-light mb-8 animate-slide-up" style="animation-delay: 0.3s;">Bistro</h2>
+                <p class="text-white text-xl md:text-2xl font-light max-w-2xl mx-auto leading-relaxed animate-slide-up" style="animation-delay: 0.6s;">
+                    Experience culinary excellence in an atmosphere of refined elegance
+                </p>
+                <div class="mt-12 animate-slide-up" style="animation-delay: 0.9s;">
+                    <button onclick="scrollToMenu()" class="bg-gold text-deep-blue-dark px-8 py-4 text-lg font-semibold rounded-full hover:bg-gold-dark transform hover:scale-105 transition-all duration-300 shadow-lg">
+                        Explore Our Menu
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Menu Categories Grid -->
+        <section id="menuCategories" class="py-20 px-4 bg-white">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="font-serif text-4xl md:text-5xl text-deep-blue-dark font-bold mb-4">Our Culinary Journey</h2>
+                    <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
+                    <p class="text-gray-600 text-lg max-w-2xl mx-auto">Discover our carefully curated selection of premium beverages, artisanal dishes, and culinary masterpieces</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Coffee Category -->
+                    <div class="category-tile group cursor-pointer" onclick="openCategory('coffee')">
+                        <div class="relative overflow-hidden rounded-2xl shadow-xl transform group-hover:scale-105 transition-all duration-300">
+                            <!-- Premium coffee beans and espresso setup -->
+                            <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" alt="Premium Coffee Selection" class="w-full h-64 object-cover" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-deep-blue-dark via-transparent to-transparent opacity-70"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <h3 class="text-white font-serif text-2xl font-bold mb-2">Coffee</h3>
+                                <p class="text-gray-200 text-sm">Premium espresso, lattes & specialty blends</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Noble Coolers Category -->
+                    <div class="category-tile group cursor-pointer" onclick="openCategory('coolers')">
+                        <div class="relative overflow-hidden rounded-2xl shadow-xl transform group-hover:scale-105 transition-all duration-300">
+                            <!-- Colorful tropical drinks with garnishes -->
+                            <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" alt="Noble Coolers & Refreshing Drinks" class="w-full h-64 object-cover" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-deep-blue-dark via-transparent to-transparent opacity-70"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <h3 class="text-white font-serif text-2xl font-bold mb-2">Noble Coolers</h3>
+                                <p class="text-gray-200 text-sm">Refreshing mocktails & specialty beverages</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Organic Teas Category -->
+                    <div class="category-tile group cursor-pointer" onclick="openCategory('teas')">
+                        <div class="relative overflow-hidden rounded-2xl shadow-xl transform group-hover:scale-105 transition-all duration-300">
+                            <!-- Elegant tea service with organic herbs -->
+                            <img src="https://pixabay.com/get/g2abdfbfb1b6762cf2f35627660d7a9c2496a91b015b24cc44fb42b738387365cb11b4dcb4ad3c573094607cc4fa10ddcc0866f305ef6d2e3c6617eedac1f43c7_1280.jpg" alt="Organic Tea Collection" class="w-full h-64 object-cover" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-deep-blue-dark via-transparent to-transparent opacity-70"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <h3 class="text-white font-serif text-2xl font-bold mb-2">Organic Teas</h3>
+                                <p class="text-gray-200 text-sm">Handpicked organic blends & herbal infusions</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bubble Tea Category -->
+                    <div class="category-tile group cursor-pointer" onclick="openCategory('bubbleTea')">
+                        <div class="relative overflow-hidden rounded-2xl shadow-xl transform group-hover:scale-105 transition-all duration-300">
+                            <!-- Colorful bubble tea with pearls -->
+                            <img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" alt="Bubble Tea & Shakes" class="w-full h-64 object-cover" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-deep-blue-dark via-transparent to-transparent opacity-70"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <h3 class="text-white font-serif text-2xl font-bold mb-2">Bubble Tea</h3>
+                                <p class="text-gray-200 text-sm">Creative bubble teas & artisanal shakes</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soups Category -->
+                    <div class="category-tile group cursor-pointer" onclick="openCategory('soups')">
+                        <div class="relative overflow-hidden rounded-2xl shadow-xl transform group-hover:scale-105 transition-all duration-300">
+                            <!-- Gourmet soup in elegant bowl with garnishes -->
+                            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" alt="Gourmet Soups" class="w-full h-64 object-cover" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-deep-blue-dark via-transparent to-transparent opacity-70"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <h3 class="text-white font-serif text-2xl font-bold mb-2">Soups</h3>
+                                <p class="text-gray-200 text-sm">Artisanal soups & warming broths</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Salads Category -->
+                    <div class="category-tile group cursor-pointer" onclick="openCategory('salads')">
+                        <div class="relative overflow-hidden rounded-2xl shadow-xl transform group-hover:scale-105 transition-all duration-300">
+                            <!-- Fresh gourmet salad with colorful ingredients -->
+                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" alt="Fresh Gourmet Salads" class="w-full h-64 object-cover" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-deep-blue-dark via-transparent to-transparent opacity-70"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <h3 class="text-white font-serif text-2xl font-bold mb-2">Salads</h3>
+                                <p class="text-gray-200 text-sm">Fresh greens & signature dressings</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Starters Category -->
+                    <div class="category-tile group cursor-pointer" onclick="openCategory('starters')">
+                        <div class="relative overflow-hidden rounded-2xl shadow-xl transform group-hover:scale-105 transition-all duration-300">
+                            <!-- Elegant appetizer platter with various starters -->
+                            <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" alt="Gourmet Starters" class="w-full h-64 object-cover" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-deep-blue-dark via-transparent to-transparent opacity-70"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <h3 class="text-white font-serif text-2xl font-bold mb-2">Starters</h3>
+                                <p class="text-gray-200 text-sm">Exquisite appetizers & small plates</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Burgers Category -->
+                    <div class="category-tile group cursor-pointer" onclick="openCategory('burgers')">
+                        <div class="relative overflow-hidden rounded-2xl shadow-xl transform group-hover:scale-105 transition-all duration-300">
+                            <!-- Gourmet burger with premium ingredients -->
+                            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" alt="Gourmet Burgers" class="w-full h-64 object-cover" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-deep-blue-dark via-transparent to-transparent opacity-70"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <h3 class="text-white font-serif text-2xl font-bold mb-2">Burgers</h3>
+                                <p class="text-gray-200 text-sm">Artisanal burgers & gourmet patties</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pizza Category -->
+                    <div class="category-tile group cursor-pointer" onclick="openCategory('pizza')">
+                        <div class="relative overflow-hidden rounded-2xl shadow-xl transform group-hover:scale-105 transition-all duration-300">
+                            <!-- Wood-fired artisanal pizza -->
+                            <img src="https://pixabay.com/get/geaada7ef6f9cec3adb9cb9ba5970edfcc08986568d71dbbaa8dcfacc19080abe19349676cccbf1c724a9e040bd80963d34aeff47f2682ae3cdbd2db2f4981cd1_1280.jpg" alt="Artisanal Pizzas" class="w-full h-64 object-cover" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-deep-blue-dark via-transparent to-transparent opacity-70"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <h3 class="text-white font-serif text-2xl font-bold mb-2">Pizza</h3>
+                                <p class="text-gray-200 text-sm">Wood-fired pizzas & artisan crusts</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pasta Category -->
+                    <div class="category-tile group cursor-pointer" onclick="openCategory('pasta')">
+                        <div class="relative overflow-hidden rounded-2xl shadow-xl transform group-hover:scale-105 transition-all duration-300">
+                            <!-- Fresh pasta with herbs and sauce -->
+                            <img src="https://pixabay.com/get/g65b66e665bc54163562f69071712b66dd37d967fbaaf955ecdeece28a4386da7c3a9857e65153505e8e4750d8ac98d777e2bbb70ea93dc964aadf5f5497cc154_1280.jpg" alt="Fresh Pasta Dishes" class="w-full h-64 object-cover" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-deep-blue-dark via-transparent to-transparent opacity-70"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <h3 class="text-white font-serif text-2xl font-bold mb-2">Pasta</h3>
+                                <p class="text-gray-200 text-sm">Handmade pasta & authentic sauces</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Beverages Category -->
+                    <div class="category-tile group cursor-pointer" onclick="openCategory('beverages')">
+                        <div class="relative overflow-hidden rounded-2xl shadow-xl transform group-hover:scale-105 transition-all duration-300">
+                            <!-- Variety of premium beverages -->
+                            <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" alt="Premium Beverages" class="w-full h-64 object-cover" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-deep-blue-dark via-transparent to-transparent opacity-70"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <h3 class="text-white font-serif text-2xl font-bold mb-2">Beverages</h3>
+                                <p class="text-gray-200 text-sm">Fresh juices & specialty drinks</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Menu Detail Panels -->
+    <div id="menuPanel" class="fixed inset-0 bg-white z-40 menu-slide">
+        <div class="h-full overflow-y-auto">
+            <div class="sticky top-0 bg-deep-blue text-white p-4 shadow-lg z-50">
+                <div class="flex items-center justify-between max-w-7xl mx-auto">
+                    <h2 id="categoryTitle" class="font-serif text-2xl md:text-3xl font-bold"></h2>
+                    <button onclick="closeMenu()" class="text-gold hover:text-gold-dark text-3xl font-bold">&times;</button>
+                </div>
+            </div>
+            
+            <div class="p-6 md:p-8 max-w-7xl mx-auto">
+                <div id="menuItems" class="grid gap-6"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize floating bubbles
+        function createBubbles() {
+            const bubblesContainer = document.getElementById('bubbles');
+            
+            function addBubble() {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                const size = Math.random() * 40 + 20;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.left = Math.random() * 100 + '%';
+                bubble.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                bubble.style.animationDelay = Math.random() * 2 + 's';
+                
+                bubblesContainer.appendChild(bubble);
+                
+                setTimeout(() => {
+                    if (bubble.parentNode) {
+                        bubble.parentNode.removeChild(bubble);
+                    }
+                }, 15000);
+            }
+            
+            setInterval(addBubble, 3000);
+            // Add initial bubbles
+            for (let i = 0; i < 5; i++) {
+                setTimeout(addBubble, i * 600);
+            }
+        }
+
+        // Menu data structure
+        const menuData = {
+            coffee: {
+                title: "Coffee",
+                items: [
+                    { name: "Espresso", price: "₹79", description: "Rich, bold espresso shot" },
+                    { name: "Double Espresso", price: "₹99", description: "Double shot for extra kick" },
+                    { name: "Americano", price: "₹109", description: "Hot or iced coffee classic", addon: "Hot/Iced" },
+                    { name: "Macchiato", price: "₹129", description: "Espresso with steamed milk foam" },
+                    { name: "Flat White", price: "₹149", description: "Smooth microfoam coffee" },
+                    { name: "Café Latte", price: "₹149", description: "Espresso with steamed milk", addon: "Add on: caramel, vanilla, Irish, hazelnut - ₹39" },
+                    { name: "Cappuccino", price: "₹169", description: "Classic Italian coffee drink", addon: "Add on: caramel, vanilla, Irish, hazelnut - ₹39" },
+                    { name: "Irish Coffee", price: "₹169", description: "Coffee with Irish whiskey flavor" },
+                    { name: "Café Mocha", price: "₹179", description: "Chocolate espresso delight", addon: "Add on: roasted almond, butterscotch - ₹39" },
+                    { name: "Caramel Latte", price: "₹179", description: "Sweet caramel coffee treat" },
+                    { name: "Vanilla Latte", price: "₹179", description: "Smooth vanilla coffee blend" },
+                    { name: "Hazelnut Latte", price: "₹179", description: "Nutty hazelnut coffee flavor" },
+                    { name: "Spanish Latte", price: "₹179", description: "Traditional Spanish style latte" },
+                    { name: "Vietnamese Coffee", price: "₹179", description: "Rich Vietnamese coffee blend" },
+                    { name: "Lotus Biscoff Latte", price: "₹179", description: "Cookie-flavored coffee specialty" },
+                    { name: "Tiramisu Latte", price: "₹179", description: "Italian dessert inspired coffee" },
+                    { name: "Hot Chocolate", price: "₹199", description: "Rich creamy hot chocolate", addon: "Add on: hazelnut, vanilla, caramel - ₹39" },
+                    { name: "Cold Coffee", price: "₹169", description: "Refreshing iced coffee blend", addon: "Add on: caramel, vanilla, Irish, hazelnut - ₹39" },
+                    { name: "Iced Caramel Macchiato", price: "₹169", description: "Sweet iced coffee delight" },
+                    { name: "Twisted Brownie Frappe", price: "₹249", description: "Decadent chocolate brownie drink" },
+                    { name: "Temptation", price: "₹249", description: "Our signature indulgent coffee" }
+                ]
+            },
+            coolers: {
+                title: "Noble Coolers",
+                items: [
+                    { name: "Tropical Tremble", price: "₹219", description: "Muddled mandarin and mint topped with orange juice and cranberry" },
+                    { name: "The Backyard Colada", price: "₹249", description: "Our special drink with orange, pineapple, coconut milk and vanilla" },
+                    { name: "Virgin Pinacolada", price: "₹249", description: "Pineapple juice, coconut milk and coconut syrup" },
+                    { name: "Blooming Blossom", price: "₹249", description: "Fresh watermelon, cranberry, rose and cherry blend" },
+                    { name: "Copegan", price: "₹249", description: "Fresh muddled dragon fruit mixed with coconut water and peach" },
+                    { name: "Tropical Paradise", price: "₹249", description: "Fresh pomegranate, mandarin, mint, lime and fizz" },
+                    { name: "The Classic Mojito", price: "₹199", description: "All-time favorite with watermelon/kiwi/apple flavor" },
+                    { name: "Pomo Punch Nade", price: "₹219", description: "Kokum syrup, black salt, jaljeera, pomegranate juice and mint" },
+                    { name: "The Pink Lady", price: "₹199", description: "Apple juice, pineapple juice, pomegranate, passionfruit and lime" },
+                    { name: "Blue Pea Butterfly Ice Tea", price: "₹219", description: "Magical blue hued tea that changes color" },
+                    { name: "Rose Ice Tea", price: "₹219", description: "Delicate and fragrant brew with rose elegance" },
+                    { name: "Game Over", price: "₹219", description: "Green chilies, ginger, mint and lemonade" },
+                    { name: "Shaken Iced Tea", price: "₹219", description: "Peach, lemon, passion fruit flavors" }
+                ]
+            },
+            teas: {
+                title: "Organic Teas",
+                items: [
+                    { name: "Peppermint", price: "₹79", description: "Refreshing organic peppermint tea" },
+                    { name: "Chamomile", price: "₹79", description: "Soothing chamomile herbal blend" },
+                    { name: "Hibiscus", price: "₹79", description: "Tangy and colorful hibiscus tea" },
+                    { name: "Rose", price: "₹79", description: "Delicate rose petal infusion" },
+                    { name: "Blue Pea Butterfly Tea", price: "₹89", description: "Magical color-changing butterfly pea tea" }
+                ]
+            },
+            bubbleTea: {
+                title: "Bubble Tea & Shakes",
+                items: [
+                    { name: "Regally Blonde Tea", price: "₹229", description: "Premium blonde tea with pearls" },
+                    { name: "Coffee Tea", price: "₹249", description: "Coffee and tea fusion with bubbles" },
+                    { name: "Nutella", price: "₹249", description: "Rich Nutella flavored shake" },
+                    { name: "Berry Blast", price: "₹249", description: "Mixed berry bubble tea" },
+                    { name: "Lotus Biscoff", price: "₹249", description: "Cookie-flavored bubble tea" },
+                    { name: "Cold Chocolate", price: "₹249", description: "Chocolate bubble tea delight" },
+                    { name: "Oreo Love", price: "₹249", description: "Cookies and cream bubble tea" },
+                    { name: "Salted Caramel", price: "₹249", description: "Sweet and salty caramel treat" }
+                ]
+            },
+            beverages: {
+                title: "Beverages",
+                items: [
+                    { name: "Water", price: "₹20", description: "Pure drinking water" },
+                    { name: "Lemonade", price: "₹129", description: "Fresh squeezed lemonade" },
+                    { name: "Fresh Watermelon Juice", price: "₹129", description: "Fresh watermelon juice" }
+                ]
+            },
+            soups: {
+                title: "Soups",
+                items: [
+                    { name: "Mushroom & Cottage Cheese", price: "₹129", description: "Mushroom with crumbled cottage cheese" },
+                    { name: "Lemon Pepper", price: "₹129", description: "Asian style exotic vegetable broth with zucchini chunks" },
+                    { name: "Roasted Tomato and Basil", price: "₹129", description: "Roasted tomato broth with garlic crostini" },
+                    { name: "Cream of Broccoli", price: "₹149", description: "Broccoli cubes in vegetable broth topped with fresh cream" },
+                    { name: "Chicken Fagioli Soup", price: "₹149", description: "Tangy red kidney beans puree with Marconi garnish" },
+                    { name: "Tuscan Chicken Soup", price: "₹149", description: "Chicken, celery & carrot in chicken broth, Tuscan style" }
+                ]
+            },
+            salads: {
+                title: "Salads",
+                items: [
+                    { name: "Caesar Veg Salad", price: "₹249", description: "Iceberg, romaine, garlic croutons, parmesan with Caesar dressing" },
+                    { name: "Caesar Chicken Salad", price: "₹279", description: "Classic Caesar with grilled chicken" },
+                    { name: "Honey Mustard Chicken Salad", price: "₹249", description: "Grilled chicken, chicken sausages, romaine with honey mustard" },
+                    { name: "Fruit & Fiber Salad", price: "₹249", description: "Apple & pear slices, iceberg, walnuts with lemon chili vinaigrette" },
+                    { name: "Fattoush", price: "₹249", description: "Lebanese salad with pita chips, sumac, olive oil and lemon" },
+                    { name: "Spicy Mexican", price: "₹249", description: "Mexican sauce with kidney beans, olives, onions, capsicum & corn" },
+                    { name: "Fruit Bowl", price: "₹249", description: "Seasonal fresh fruit bowl" },
+                    { name: "Smoothie Bowl", price: "₹249", description: "Hung curd with strawberry/blueberry topped with fresh fruits" },
+                    { name: "Protein Veg Bowl", price: "₹299", description: "Baked exotic veggies with herb marinade and vinaigrette" },
+                    { name: "Protein Chicken Bowl", price: "₹299", description: "Baked veggies with herb marinated roasted chicken breast" }
+                ]
+            },
+            starters: {
+                title: "Starters",
+                items: [
+                    { name: "Salted Fries", price: "₹149", description: "Crispy potato fries with tomato ketchup" },
+                    { name: "Peri Peri Fries", price: "₹169", description: "Spicy peri peri seasoned fries" },
+                    { name: "Chicken Peri Peri Fries", price: "₹199", description: "Peri peri fries with chicken chunks and cheddar sauce" },
+                    { name: "Backyard Chilli Wontons", price: "₹199", description: "Crispy wontons with fiery backyard chilli dip (veg/chicken)" },
+                    { name: "Salsa Nachos", price: "₹219", description: "Nachos with salsa and sour cream (Add chicken +₹50)" },
+                    { name: "Honey Paprika Oyster Mushrooms", price: "₹219", description: "Deep fried oyster mushrooms in honey paprika sauce" },
+                    { name: "Lotus Stem", price: "₹249", description: "Choice of sauces: Honey Chilli, Chipotle, BBQ, Schezwan" },
+                    { name: "Tempura Baby Corn", price: "₹199", description: "Baby corn in tempura batter with spicy sauce" },
+                    { name: "Tempura Paneer", price: "₹249", description: "Paneer in tempura batter with spicy sauce" },
+                    { name: "Tempura Chicken", price: "₹249", description: "Chicken strips in tempura batter with spicy sauce" },
+                    { name: "Crispy Peri Peri Chicken", price: "₹219", description: "Marinated chicken with peri peri sprinkler" },
+                    { name: "Smokey Chicken Tenders", price: "₹249", description: "Marinated chicken tenders fried and tossed in chilli oil" },
+                    { name: "Chilli Basil Paneer/Chicken", price: "₹249", description: "Tossed in chilli soy sauce with exotic veggies and pesto" },
+                    { name: "Chipotle Chicken Tenders", price: "₹249", description: "Tender chicken fingers in honey chipotle sauce" },
+                    { name: "Honey Chilli Sesame Chicken", price: "₹249", description: "Classic Chinese fried chicken in honey chilli sauce" },
+                    { name: "Teriyaki Chicken", price: "₹249", description: "Fried chicken chunks in flavored teriyaki sauce" },
+                    { name: "Thai Chicken Satay", price: "₹249", description: "Southeast Asian skewer with delicious peanut sauce" },
+                    { name: "Grilled Chicken Wings", price: "₹249", description: "Herb marinated wings in homemade Hawaiian sauce" }
+                ]
+            },
+            burgers: {
+                title: "Burgers",
+                items: [
+                    { name: "Virgin Lentil Burger", price: "₹199", description: "Mixed lentil patty with iceberg, coleslaw, garlic mayo" },
+                    { name: "Veg Protein Burger", price: "₹199", description: "Veg protein patty with iceberg, tomato, onion, cheddar cheese" },
+                    { name: "Paneer Tikka Burger", price: "₹249", description: "Tandoori paneer with iceberg, mint mayo, lacha pyaaz" },
+                    { name: "Paneer BBQ Burger", price: "₹249", description: "BBQ paneer with iceberg, caramelized onion, sliced cheese" },
+                    { name: "Chicken BBQ Burger", price: "₹249", description: "BBQ chicken with iceberg, caramelized onions, sunny side egg" },
+                    { name: "Grilled Chicken Burger", price: "₹249", description: "Marinated grilled chicken breast with iceberg, jalapeños, cheese" },
+                    { name: "Nashville Fried Chicken Burger", price: "₹279", description: "Crispy chicken patty with cheese sauce and jalapeños" },
+                    { name: "Butter Chicken Burger", price: "₹359", description: "Mint-kissed chicken patty with butter chicken sauce and pickled onions" },
+                    { name: "Smash Lamb Burger", price: "₹399", description: "Two crispy thin lamb patties with caramelized onion and cheddar" },
+                    { name: "Signature Lamb Burger", price: "₹399", description: "Homemade lamb patty with caramelized pineapple and chef's special sauce" }
+                ]
+            },
+            pizza: {
+                title: "Pizza",
+                items: [
+                    { name: "Margherita", price: "₹379", description: "Classic Italian tomato sauce with mozzarella and basil" },
+                    { name: "Hawaiian Delight Veg", price: "₹399", description: "Bell peppers, pineapple, sundried tomato, paprika" },
+                    { name: "Mushroom And Broccoli", price: "₹419", description: "Mushroom, broccoli, olives, cheese" },
+                    { name: "Country Side Veg", price: "₹419", description: "American corn, capsicum, onion, zucchini, cheese, jalapeños" },
+                    { name: "BBQ Paneer", price: "₹419", description: "BBQ paneer with sweet caramelized onions, jalapeño, mozzarella" },
+                    { name: "Backyard's Summer Veggie", price: "₹419", description: "House special with corn, onions, olives, bell pepper, jalapeño" },
+                    { name: "Spicy Chicken Paprika", price: "₹449", description: "Chicken cubes, onion, paprika, bell peppers" },
+                    { name: "Meat Lover's Pizza", price: "₹479", description: "Chicken keema, salami, sausages, jalapeños, balsamic reduction" }
+                ]
+            },
+            pasta: {
+                title: "Pasta",
+                items: [
+                    { name: "Mac N Cheese", price: "₹299", description: "Traditional macaroni baked until creamy and cheesy" },
+                    { name: "Alfredo", price: "₹299", description: "Penne with exotic veggies/chicken in homemade alfredo sauce with olives and parmesan" },
+                    { name: "Arrabiata", price: "₹299", description: "Penne with exotic veggies/chicken in rich and spicy Italian sauce" }
+                ]
+            }
+        };
+
+        function openCategory(category) {
+            const menuPanel = document.getElementById('menuPanel');
+            const categoryTitle = document.getElementById('categoryTitle');
+            const menuItems = document.getElementById('menuItems');
+            
+            const categoryData = menuData[category];
+            if (!categoryData) return;
+            
+            categoryTitle.textContent = categoryData.title;
+            
+            menuItems.innerHTML = categoryData.items.map(item => `
+                <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="font-serif text-xl font-bold text-deep-blue-dark">${item.name}</h3>
+                        <span class="text-gold font-bold text-lg">${item.price}</span>
+                    </div>
+                    <p class="text-gray-600 mb-3">${item.description}</p>
+                    ${item.addon ? `<p class="text-sm text-gray-500 italic">${item.addon}</p>` : ''}
+                </div>
+            `).join('');
+            
+            menuPanel.classList.add('active');
+        }
+
+        function closeMenu() {
+            const menuPanel = document.getElementById('menuPanel');
+            menuPanel.classList.remove('active');
+        }
+
+        function scrollToMenu() {
+            document.getElementById('menuCategories').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        // Initialize the application
+        (function() {
+            // Hide loading screen after 3 seconds
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                document.getElementById('mainContent').style.opacity = '1';
+                
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                }, 1000);
+            }, 3000);
+
+            // Start bubble animation
+            createBubbles();
+
+            // Handle escape key to close menu
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeMenu();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
