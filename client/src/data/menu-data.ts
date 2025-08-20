@@ -1,3 +1,13 @@
+// Import all category images
+import beveragesImage from "@assets/images/categories/beverages.svg";
+import soupsImage from "@assets/images/categories/soups.svg";
+import saladsImage from "@assets/images/categories/salads.svg";
+import startersImage from "@assets/images/categories/starters.svg";
+import burgersImage from "@assets/images/categories/burgers.svg";
+import pizzaImage from "@assets/images/categories/pizza.svg";
+import pastaImage from "@assets/images/categories/pasta.svg";
+import mainsImage from "@assets/images/categories/mains.svg";
+
 export interface MenuItem {
   name: string;
   price: string;
@@ -14,6 +24,18 @@ export interface CategoryData {
   subtitle: string;
   sections: MenuSection[];
 }
+
+// Category images mapping for easy replacement
+export const categoryImages = {
+  beverages: beveragesImage,
+  soups: soupsImage,
+  salads: saladsImage,
+  starters: startersImage,
+  burgers: burgersImage,
+  pizza: pizzaImage,
+  pasta: pastaImage,
+  mains: mainsImage,
+};
 
 export const menuData: Record<string, CategoryData> = {
   beverages: {
@@ -287,13 +309,4 @@ export const menuData: Record<string, CategoryData> = {
   }
 };
 
-export const categoryImages = {
-  beverages: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-  soups: "https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-  salads: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-  starters: "https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-  burgers: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-  pizza: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-  pasta: "https://images.unsplash.com/photo-1563379091339-03246963d51a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-  mains: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
-};
+

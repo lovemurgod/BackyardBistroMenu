@@ -61,6 +61,7 @@ export default {
           border: "var(--sidebar-border)",
           ring: "var(--sidebar-ring)",
         },
+        'charcoal-grey': 'var(--charcoal-grey)',
         'deep-blue': 'var(--deep-blue)',
         'slate-blue': 'var(--slate-blue)',
         'luxury-gold': 'var(--luxury-gold)',

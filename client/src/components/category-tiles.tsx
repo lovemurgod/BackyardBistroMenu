@@ -26,7 +26,7 @@ export default function CategoryTiles({ onCategorySelect }: CategoryTilesProps) 
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-          <h1 className="font-playfair text-4xl md:text-6xl text-deep-blue mb-4">Our Menu</h1>
+          <h1 className="font-playfair text-4xl md:text-6xl text-cream-white mb-4">Our Menu</h1>
           <p className="font-dancing text-xl md:text-2xl gold-gradient">Discover culinary excellence</p>
         </motion.div>
 

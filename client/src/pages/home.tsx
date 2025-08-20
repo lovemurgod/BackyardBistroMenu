@@ -22,7 +22,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-cream-white overflow-x-hidden">
+    <div className="min-h-screen bg-charcoal-grey overflow-x-hidden">
       <FloatingBubbles />
       
       {!showMain && (
@@ -32,17 +32,19 @@ export default function Home() {
       {showMain && (
         <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
           {/* Header */}
-          <header className="gradient-bg py-4 sticky top-0 z-40 glass-effect">
-            <div className="container mx-auto px-4 flex items-center justify-between">
-              <img 
-                src={logoImage} 
-                alt="The Backyard Bistro" 
-                className="h-12 md:h-16"
-              />
+          <header className="bg-charcoal-grey py-4 sticky top-0 z-40 border-b border-luxury-gold/20">
+            <div className="container mx-auto px-4 flex items-center justify-center">
+              <div className="flex-1 flex justify-center">
+                <img 
+                  src={logoImage} 
+                  alt="The Backyard Bistro" 
+                  className="h-16 md:h-20"
+                />
+              </div>
               {selectedCategory && (
                 <button 
                   onClick={handleBackToCategories}
-                  className="bg-luxury-gold text-deep-blue px-6 py-2 rounded-full font-semibold hover:bg-amber-gold transition-colors"
+                  className="absolute right-4 bg-luxury-gold text-deep-blue px-6 py-2 rounded-full font-semibold hover:bg-amber-gold transition-colors"
                 >
                   Back to Categories
                 </button>

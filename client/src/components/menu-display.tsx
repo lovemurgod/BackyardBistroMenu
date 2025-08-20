@@ -11,14 +11,14 @@ export default function MenuDisplay({ category }: MenuDisplayProps) {
   if (!data) {
     return (
       <div className="py-16 px-4 text-center">
-        <h2 className="font-playfair text-2xl text-deep-blue">Category not found</h2>
+        <h2 className="font-playfair text-2xl text-cream-white">Category not found</h2>
       </div>
     );
   }
 
   return (
     <motion.section 
-      className="py-16 px-4 bg-gradient-to-b from-cream-white to-white"
+      className="py-16 px-4 bg-charcoal-grey"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -30,8 +30,8 @@ export default function MenuDisplay({ category }: MenuDisplayProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h2 className="font-playfair text-4xl md:text-5xl text-deep-blue mb-4">{data.title}</h2>
-          <p className="font-dancing text-xl text-slate-blue">{data.subtitle}</p>
+          <h2 className="font-playfair text-4xl md:text-5xl text-cream-white mb-4">{data.title}</h2>
+          <p className="font-dancing text-xl text-luxury-gold">{data.subtitle}</p>
         </motion.div>
 
         <div className="space-y-8">
