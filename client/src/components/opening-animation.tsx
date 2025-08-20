@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import logoImage from "@assets/Screenshot_2025-07-01_231322-removebg-preview_1755704800527.png";
+import logoImage from "@/assets/images/logo.webp";
 
 interface OpeningAnimationProps {
   onComplete: () => void;

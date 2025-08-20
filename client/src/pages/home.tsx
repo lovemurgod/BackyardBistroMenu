@@ -3,7 +3,7 @@ import OpeningAnimation from "@/components/opening-animation";
 import FloatingBubbles from "@/components/floating-bubbles";
 import CategoryTiles from "@/components/category-tiles";
 import MenuDisplay from "@/components/menu-display";
-import logoImage from "@assets/generated_images/Luxury_bistro_golden_logo_c69da49e.png";
+import logoImage from "@/assets/images/logo.webp";
 
 export default function Home() {
   const [showMain, setShowMain] = useState(false);

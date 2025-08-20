@@ -1,12 +1,12 @@
 // Import all category images in WebP format
-import beveragesImage from "@assets/images/categories/beverages.webp";
-import soupsImage from "@assets/images/categories/soups.webp";
-import saladsImage from "@assets/images/categories/salads.webp";
-import startersImage from "@assets/images/categories/starters.webp";
-import burgersImage from "@assets/images/categories/burgers.webp";
-import pizzaImage from "@assets/images/categories/pizza.webp";
-import pastaImage from "@assets/images/categories/pasta.webp";
-import mainsImage from "@assets/images/categories/mains.webp";
+import beveragesImage from "@/assets/images/categories/beverages.webp";
+import soupsImage from "@/assets/images/categories/soups.webp";
+import saladsImage from "@/assets/images/categories/salads.webp";
+import startersImage from "@/assets/images/categories/starters.webp";
+import burgersImage from "@/assets/images/categories/burgers.webp";
+import pizzaImage from "@/assets/images/categories/pizza.webp";
+import pastaImage from "@/assets/images/categories/pasta.webp";
+import mainsImage from "@/assets/images/categories/mains.webp";
 
 export interface MenuItem {
   name: string;
