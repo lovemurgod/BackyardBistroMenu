@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Dancing+Script:wght@400;600&family=Inter:wght@300;400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(248, 39%, 98%);
+  --foreground: hsl(215, 25%, 12%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(215, 25%, 12%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(215, 25%, 12%);
+  --primary: hsl(51, 100%, 50%);
+  --primary-foreground: hsl(215, 25%, 12%);
+  --secondary: hsl(215, 25%, 12%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --muted: hsl(210, 40%, 96%);
+  --muted-foreground: hsl(215, 25%, 12%);
+  --accent: hsl(210, 40%, 96%);
+  --accent-foreground: hsl(215, 25%, 12%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(214, 32%, 91%);
+  --input: hsl(214, 32%, 91%);
+  --ring: hsl(51, 100%, 50%);
+  --deep-blue: hsl(215, 25%, 12%);
+  --slate-blue: hsl(215, 18%, 23%);
+  --luxury-gold: hsl(51, 100%, 50%);
+  --amber-gold: hsl(43, 96%, 56%);
+  --cream-white: hsl(210, 40%, 98%);
+  --radius: 1rem;
+}
+
+.dark {
+  --background: hsl(215, 25%, 12%);
+  --foreground: hsl(210, 40%, 98%);
+  --card: hsl(215, 18%, 23%);
+  --card-foreground: hsl(210, 40%, 98%);
+  --popover: hsl(215, 25%, 12%);
+  --popover-foreground: hsl(210, 40%, 98%);
+  --primary: hsl(51, 100%, 50%);
+  --primary-foreground: hsl(215, 25%, 12%);
+  --secondary: hsl(210, 40%, 98%);
+  --secondary-foreground: hsl(215, 25%, 12%);
+  --muted: hsl(215, 18%, 16%);
+  --muted-foreground: hsl(217, 10%, 64%);
+  --accent: hsl(215, 18%, 16%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --destructive: hsl(0, 62%, 30%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(215, 18%, 30%);
+  --input: hsl(215, 18%, 30%);
+  --ring: hsl(51, 100%, 50%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-cream-white font-inter antialiased text-foreground overflow-x-hidden;
+  }
+}
+
+@layer components {
+  .gradient-bg {
+    background: linear-gradient(135deg, var(--deep-blue) 0%, var(--slate-blue) 50%, hsl(215, 15%, 35%) 100%);
+  }
+  
+  .gold-gradient {
+    background: linear-gradient(135deg, var(--luxury-gold) 0%, var(--amber-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .glass-effect {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid hsla(51, 100%, 50%, 0.2);
+  }
+  
+  .category-card {
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .category-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px hsla(51, 100%, 50%, 0.3);
+  }
+  
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, hsla(51, 100%, 50%, 0.6) 0%, hsla(43, 96%, 56%, 0.3) 70%, transparent 100%);
+    pointer-events: none;
+  }
+}
+
+@layer utilities {
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .font-dancing {
+    font-family: 'Dancing Script', cursive;
+  }
+  
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+}
